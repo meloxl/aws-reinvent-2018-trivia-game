@@ -39,7 +39,7 @@ class TriviaGameBackendPipelineStack extends cdk.Stack {
         // Build
         const buildProject = new codebuild.Project(this, 'BuildProject', {
             source: new codebuild.GitHubSource({
-                cloneUrl: 'https://github.com/aws-samples/aws-reinvent-2018-trivia-game',
+                cloneUrl: 'https://github.com/meloxl/aws-reinvent-2018-trivia-game.git',
                 oauthToken: githubAccessToken.value
             }),
             buildSpec: 'trivia-backend/cdk/buildspec.yml',

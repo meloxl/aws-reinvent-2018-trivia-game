@@ -43,7 +43,7 @@ export class TriviaGameCfnPipeline extends cdk.Construct {
         // Build
         const buildProject = new codebuild.Project(this, 'BuildProject', {
             source: new codebuild.GitHubSource({
-                cloneUrl: 'https://github.com/aws-samples/aws-reinvent-2018-trivia-game',
+                cloneUrl: 'https://github.com/meloxl/aws-reinvent-2018-trivia-game.git',
                 oauthToken: githubAccessToken.value
             }),
             buildSpec: props.directory + '/buildspec.yml',
