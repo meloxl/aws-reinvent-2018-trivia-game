@@ -32,6 +32,7 @@ class TriviaGameBackendPipelineStack extends cdk.Stack {
         const baseImageRepo = ecr.Repository.import(this, 'BaseRepo', { repositoryName: 'reinvent-trivia-backend-base' });
         const dockerImageSourceAction = new ecr.PipelineSourceAction(this, 'BaseImage', {
             stage: sourceStage,
+            imageTag: 'release',
             repository: baseImageRepo,
             outputArtifactName: 'BaseImage'
         });
