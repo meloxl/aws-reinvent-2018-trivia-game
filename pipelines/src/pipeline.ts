@@ -34,7 +34,7 @@ export class TriviaGameCfnPipeline extends cdk.Construct {
         const githubAccessToken = new cdk.SecretParameter(this, 'GitHubToken', { ssmParameter: 'GitHubToken' });
         const sourceAction = new codepipeline.GitHubSourceAction(this, 'GitHubSource', {
             stage: pipeline.addStage('Source'),
-            owner: 'aws-samples',
+            owner: 'meloxl',
             repo: 'aws-reinvent-2018-trivia-game',
             oauthToken: githubAccessToken.value
         });
