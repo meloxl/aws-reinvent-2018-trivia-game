@@ -1,0 +1,16 @@
+{
+  "availability-zones:account=274264184871:region=us-east-1": [
+    "us-east-1a",
+    "us-east-1b",
+    "us-east-1c",
+    "us-east-1d",
+    "us-east-1e",
+    "us-east-1f"
+  ],
+  "hosted-zone:account=274264184871:domainName=samartad.com:region=us-east-1": {
+    "Id": "/hostedzone/ZU8DO353YXM7F",
+    "Name": "samartad.com."
+  },
+  "ssm:account=274264184871:parameterName=CertificateArn-api-test.samartad.com:region=us-east-1": "arn:aws:acm:us-east-1:274264184871:certificate/60acaf28-143f-4ecb-a62f-ed0fe4763d4e",
+  "ssm:account=274264184871:parameterName=CertificateArn-api.samartad.com:region=us-east-1": "arn:aws:acm:us-east-1:274264184871:certificate/60acaf28-143f-4ecb-a62f-ed0fe4763d4e"
+}

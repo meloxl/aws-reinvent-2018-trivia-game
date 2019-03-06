@@ -9,15 +9,15 @@
                     "containerPort": 80
                 }
             ],
-            "image": "<PLACEHOLDER>",
+            "image": "274264184871.dkr.ecr.us-east-1.amazonaws.com/reinvent-trivia-backend:build-594403a2-e504-448e-8b7d-e7f3db0a47b7",
             "essential": true,
             "name": "web"
         }
     ],
     "cpu": "256",
     "memory": "512",
-    "taskRoleArn": "arn:aws:iam::131296546870:role/TriviaBackendTest-ServiceTaskDefTaskRole0CFE2F57-1CGBN028CGQSC",
-    "executionRoleArn": "arn:aws:iam::131296546870:role/TriviaBackendTest-ServiceTaskDefExecutionRole919F7-1NIJ2W4OM4W50",
+    "taskRoleArn": "arn:aws:iam::274264184871:role/TriviaBackendProd-ServiceTaskDefTaskRole0CFE2F57-1WGG5ZO0F58VJ",
+    "executionRoleArn": "arn:aws:iam::274264184871:role/TriviaBackendProd-ServiceTaskDefExecutionRole919F7-LVNJBOZSNIMH",
     "requiresCompatibilities": [
         "FARGATE"
     ],
