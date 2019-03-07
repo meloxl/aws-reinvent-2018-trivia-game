@@ -9,7 +9,7 @@
                     "containerPort": 80
                 }
             ],
-            "image": "274264184871.dkr.ecr.us-east-1.amazonaws.com/reinvent-trivia-backend:build-87d69cbe-4fb6-43b1-a3a2-34fadd73e3b6",
+            "image": "274264184871.dkr.ecr.us-east-1.amazonaws.com/reinvent-trivia-backend:build-4a195730-615a-471e-acf1-1456db77bd59",
             "essential": true,
             "name": "web"
         }
