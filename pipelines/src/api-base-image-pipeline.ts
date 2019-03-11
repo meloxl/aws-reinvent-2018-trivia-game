@@ -31,6 +31,8 @@ class TriviaGameBackendBaseImagePipeline extends cdk.Stack {
             ], // optional
             additionalInformation: 'additional info', // optional
         });
+        approveStage.addAction(manualApprovalAction);
+
 
         // Build
         const buildStage = pipeline.addStage('Build');
