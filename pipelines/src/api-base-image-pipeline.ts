@@ -3,7 +3,9 @@ import codebuild = require('@aws-cdk/aws-codebuild');
 import codepipeline = require('@aws-cdk/aws-codepipeline');
 import iam = require('@aws-cdk/aws-iam');
 import cdk = require('@aws-cdk/cdk');
-import sns = require('@aws-cdk/aws-sns');
+
+
+// import sns = require('@aws-cdk/aws-sns');
 
 class TriviaGameBackendBaseImagePipeline extends cdk.Stack {
     constructor(parent: cdk.App, name: string, props?: cdk.StackProps) {
@@ -22,16 +24,13 @@ class TriviaGameBackendBaseImagePipeline extends cdk.Stack {
             oauthToken: githubAccessToken.value
         });
 
-        //Approval
+        // Manual approval
+
+
         new codepipeline.ManualApprovalAction(this, 'ManualApproval', {
-            actionName: 'Approve',
-            notificationTopic: new sns.Topic(this, 'Topic'), // optional
-            notifyEmails: [
-              'some_email@example.com',
-            ], // optional
-            additionalInformation: 'additional info', // optional
+            stage: pipeline.addStage('manualApproval'),
+            // notificationTopic: new sns.Topic(this, 'Topic'), // optional
         });
-        approveStage.addAction(manualApprovalAction);
 
 
         // Build
