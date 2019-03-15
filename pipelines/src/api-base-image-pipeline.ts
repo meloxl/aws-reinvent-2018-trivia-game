@@ -4,9 +4,6 @@ import codepipeline = require('@aws-cdk/aws-codepipeline');
 import iam = require('@aws-cdk/aws-iam');
 import cdk = require('@aws-cdk/cdk');
 
-
-// import sns = require('@aws-cdk/aws-sns');
-
 class TriviaGameBackendBaseImagePipeline extends cdk.Stack {
     constructor(parent: cdk.App, name: string, props?: cdk.StackProps) {
         super(parent, name, props);
@@ -22,16 +19,7 @@ class TriviaGameBackendBaseImagePipeline extends cdk.Stack {
             owner: 'meloxl',
             repo: 'aws-reinvent-2018-trivia-game',
             oauthToken: githubAccessToken.value
-        });
-
-        // Manual approval
-
-
-        new codepipeline.ManualApprovalAction(this, 'ManualApproval', {
-            stage: pipeline.addStage('manualApproval'),
-            // notificationTopic: new sns.Topic(this, 'Topic'), // optional
-        });
-
+        });    
 
         // Build
         const buildStage = pipeline.addStage('Build');

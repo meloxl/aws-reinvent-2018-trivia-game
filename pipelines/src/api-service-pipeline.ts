@@ -119,24 +119,83 @@ class TriviaGameBackendPipelineStack extends cdk.Stack {
         });
 
         // Prod
-        const prodStage = pipeline.addStage('Prod');
-        const prodStackName = 'TriviaBackendProd';
+        // const prodStage = pipeline.addStage('Prod');
+        // const prodStackName = 'TriviaBackendProd';
 
-        new cfn.PipelineCreateReplaceChangeSetAction(this, 'PrepareChanges', {
-            stage: prodStage,
-            stackName: prodStackName,
-            changeSetName,
+        // new cfn.PipelineCreateReplaceChangeSetAction(this, 'PrepareChanges', {
+        //     stage: prodStage,
+        //     stackName: prodStackName,
+        //     changeSetName,
+        //     runOrder: 1,
+        //     adminPermissions: true,
+        //     templatePath: buildAction.outputArtifact.atPath(templatePrefix + 'Prod.template.yaml'),
+        // });
+
+        // new cfn.PipelineExecuteChangeSetAction(this, 'ExecuteChangesProd', {
+        //     stage: prodStage,
+        //     stackName: prodStackName,
+        //     changeSetName,
+        //     runOrder: 2
+        // });
+
+        // Manual approval
+        // const approvalStage = pipeline.addStage('Approval');
+        new codepipeline.ManualApprovalAction(this, 'Manual_Approval', {
+            stage: pipeline.addStage('Approval'),
             runOrder: 1,
-            adminPermissions: true,
-            templatePath: buildAction.outputArtifact.atPath(templatePrefix + 'Prod.template.yaml'),
+            // notificationTopic: new sns.Topic(this, 'Topic'), // optional
         });
 
-        new cfn.PipelineExecuteChangeSetAction(this, 'ExecuteChangesProd', {
-            stage: prodStage,
-            stackName: prodStackName,
-            changeSetName,
-            runOrder: 2
+        // blue and green 
+        const BlueGreenStage = pipeline.addStage('BlueGreenBuild');
+        const BlueGreenProject = new codebuild.PipelineProject(this, 'BlueGreenProject', {
+            buildSpec: 'buildspec.yml',
+            environment: {
+              buildImage: codebuild.LinuxBuildImage.UBUNTU_14_04_DOCKER_17_09_0,
+              privileged: true
+            }
         });
+
+        BlueGreenProject.addToRolePolicy(new iam.PolicyStatement()
+            .addAllResources()
+            .addActions("ecr:GetAuthorizationToken",
+                "ecr:BatchCheckLayerAvailability",
+                "ecr:GetDownloadUrlForLayer",
+                "ecr:GetRepositoryPolicy",
+                "ecr:DescribeRepositories",
+                "ecr:ListImages",
+                "ecr:DescribeImages",
+                "ecr:BatchGetImage",
+                "ecr:InitiateLayerUpload",
+                "ecr:UploadLayerPart",
+                "ecr:CompleteLayerUpload",
+                "ecr:PutImage"));
+        BlueGreenProject.addToPipeline(BlueGreenStage, 'CodeBuild')
+
+        // const bGbuildStage = pipeline.addStage('BlueGreenBuild');
+        // const bGbuildProject = new codebuild.PipelineProject(this, 'BlueGreenDeploy', {
+        //     buildSpec: 'buildspec.yml',
+        //     environment: {
+        //         buildImage: codebuild.LinuxBuildImage.UBUNTU_14_04_DOCKER_17_09_0,
+        //         privileged: true
+        //     }
+        // });
+        // bGbuildProject.addToRolePolicy(new iam.PolicyStatement()
+        //     .addAllResources()
+        //     .addActions("ecr:GetAuthorizationToken",
+        //         "ecr:BatchCheckLayerAvailability",
+        //         "ecr:GetDownloadUrlForLayer",
+        //         "ecr:GetRepositoryPolicy",
+        //         "ecr:DescribeRepositories",
+        //         "ecr:ListImages",
+        //         "ecr:DescribeImages",
+        //         "ecr:BatchGetImage",
+        //         "ecr:InitiateLayerUpload",
+        //         "ecr:UploadLayerPart",
+        //         "ecr:CompleteLayerUpload",
+        //         "ecr:PutImage",
+        //         "ecs:DescribeServices"));
+        // bGbuildProject.addToPipeline(bGbuildStage, 'CodeBuild');
     }
 }
 
