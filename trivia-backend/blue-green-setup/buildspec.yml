@@ -47,7 +47,7 @@ phases:
       # - node produce-config.js -g prod -s TriviaBackendProd -h TriviaBackendHooksProd
       # - cp task-definition.json build/
       # - sed -i "s/123456789012/$AWS_ACCOUNT_ID/g" build/*
-      - aws ecs deploy --service trivia-backend-prod --task-definition task-definition.json --codedeploy-appspec build/appspec-prod.json --cluster vela-fluentd-test-prod --region us-east-1 --codedeploy-application AppECS-default-trivia-backend-prod --codedeploy-deployment-group DgpECS-default-trivia-backend-prod
+      - aws ecs deploy --service trivia-backend-prod --task-definition task-definition.json --codedeploy-appspec appspec-prod.json --cluster vela-fluentd-test-prod --region us-east-1 --codedeploy-application AppECS-default-trivia-backend-prod --codedeploy-deployment-group DgpECS-default-trivia-backend-prod
 
 # artifacts:
 #   secondary-artifacts:
