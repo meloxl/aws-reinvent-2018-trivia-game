@@ -9,7 +9,7 @@ phases:
     commands:
       - apt-get update
       - apt-get install -y jq
-      - npm install -g npm@6.4.1
+      # - npm install -g npm@6.4.1
       - pip install awscli --upgrade --user
 
   # pre_build:
@@ -38,7 +38,9 @@ phases:
       # - echo "{\"ImageURI\":\"$IMAGE_URI\"}" > imageDetail.json
 
       # Add subnet and security group info to appspec
-      - cd blue-green-setup
+      # - cd blue-green-setup
+      - ls 
+      - pwd
       # - mkdir build
       # - npm ci
       # - node produce-config.js -g test -s TriviaBackendTest -h TriviaBackendHooksTest
