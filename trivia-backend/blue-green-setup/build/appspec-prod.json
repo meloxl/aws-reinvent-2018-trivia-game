@@ -1,0 +1,35 @@
+{
+  "version": 0,
+  "Resources": [
+    {
+      "TargetService": {
+        "Type": "AWS::ECS::Service",
+        "Properties": {
+          "TaskDefinition": "trivia-backend:2",
+          "LoadBalancerInfo": {
+            "ContainerName": "web",
+            "ContainerPort": 80
+          },
+          "PlatformVersion": "LATEST",
+          "NetworkConfiguration": {
+            "awsvpcConfiguration": {
+              "subnets": [
+                "subnet-07229080d687ff9b9",
+                "subnet-09997f93d655172a9"
+              ],
+              "securityGroups": [
+                "sg-062b5a9c1944decfe"
+              ],
+              "assignPublicIp": "DISABLED"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "Hooks": [
+    {
+      "BeforeAllowTraffic": "CodeDeployHook_-TriviaBackendHooksProd-pre-traffic-hook"
+    }
+  ]
+}

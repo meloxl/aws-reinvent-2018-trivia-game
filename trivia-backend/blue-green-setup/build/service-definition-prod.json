@@ -1,0 +1,29 @@
+{
+  "taskDefinition": "trivia-backend:4",
+  "cluster": "vela-fluentd-test-prod",
+  "loadBalancers": [
+    {
+      "targetGroupArn": "arn:aws:elasticloadbalancing:us-east-1:274264184871:targetgroup/Trivi-Servi-1K0DK5Q0O58RG/44c357b1d76dba3f",
+      "containerName": "web",
+      "containerPort": 80
+    }
+  ],
+  "desiredCount": 3,
+  "launchType": "FARGATE",
+  "schedulingStrategy": "REPLICA",
+  "deploymentController": {
+    "type": "CODE_DEPLOY"
+  },
+  "networkConfiguration": {
+    "awsvpcConfiguration": {
+      "subnets": [
+        "subnet-07229080d687ff9b9",
+        "subnet-09997f93d655172a9"
+      ],
+      "securityGroups": [
+        "sg-062b5a9c1944decfe"
+      ],
+      "assignPublicIp": "DISABLED"
+    }
+  }
+}

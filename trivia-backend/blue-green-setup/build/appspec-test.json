@@ -1,0 +1,35 @@
+{
+  "version": 0,
+  "Resources": [
+    {
+      "TargetService": {
+        "Type": "AWS::ECS::Service",
+        "Properties": {
+          "TaskDefinition": "<TASK_DEFINITION>",
+          "LoadBalancerInfo": {
+            "ContainerName": "web",
+            "ContainerPort": 80
+          },
+          "PlatformVersion": "LATEST",
+          "NetworkConfiguration": {
+            "awsvpcConfiguration": {
+              "subnets": [
+                "subnet-0b0694628331d7389",
+                "subnet-0d24e92a92fdadca3"
+              ],
+              "securityGroups": [
+                "sg-08fd803c7e7e86ebd"
+              ],
+              "assignPublicIp": "DISABLED"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "Hooks": [
+    {
+      "BeforeAllowTraffic": "CodeDeployHook_-TriviaBackendHooksTest-pre-traffic-hook"
+    }
+  ]
+}

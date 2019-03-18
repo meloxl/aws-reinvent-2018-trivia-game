@@ -1,0 +1,74 @@
+{
+  "applicationName": "AppECS-default-trivia-backend-prod",
+  "autoRollbackConfiguration": {
+    "enabled": true,
+    "events": [
+      "DEPLOYMENT_FAILURE",
+      "DEPLOYMENT_STOP_ON_REQUEST",
+      "DEPLOYMENT_STOP_ON_ALARM"
+    ]
+  },
+  "blueGreenDeploymentConfiguration": {
+    "deploymentReadyOption": {
+      "actionOnTimeout": "CONTINUE_DEPLOYMENT",
+      "waitTimeInMinutes": 0
+    },
+    "terminateBlueInstancesOnDeploymentSuccess": {
+      "action": "TERMINATE",
+      "terminationWaitTimeInMinutes": 1
+    }
+  },
+  "deploymentStyle": {
+    "deploymentOption": "WITH_TRAFFIC_CONTROL",
+    "deploymentType": "BLUE_GREEN"
+  },
+  "loadBalancerInfo": {
+    "targetGroupPairInfoList": [
+      {
+        "targetGroups": [
+          {
+            "name": "Trivi-Servi-1K0DK5Q0O58RG"
+          },
+          {
+            "name": "Trivi-Servi-THHG36E7FAZV"
+          }
+        ],
+        "prodTrafficRoute": {
+          "listenerArns": [
+            "arn:aws:elasticloadbalancing:us-east-1:274264184871:listener/app/Trivi-Servi-KJ9T25YW5MKP/798bb760f83f8083/c2ac30cb87653df6"
+          ]
+        },
+        "testTrafficRoute": {
+          "listenerArns": [
+            "arn:aws:elasticloadbalancing:us-east-1:274264184871:listener/app/Trivi-Servi-KJ9T25YW5MKP/798bb760f83f8083/2e06dc89668548af"
+          ]
+        }
+      }
+    ]
+  },
+  "alarmConfiguration": {
+    "enabled": true,
+    "ignorePollAlarmFailure": false,
+    "alarms": [
+      {
+        "name": "TriviaBackendProd-TargetGroup25xx2FAF422E-17XYZU4QWL7XT"
+      },
+      {
+        "name": "TriviaBackendProd-TargetGroup2UnhealthyHosts9640140F-F3KVOQZSS5FQ"
+      },
+      {
+        "name": "TriviaBackendProd-TargetGroup5xx43EFCD6E-SVVYTC3IOG8R"
+      },
+      {
+        "name": "TriviaBackendProd-TargetGroupUnhealthyHosts734E7711-K1LS436GH3MP"
+      }
+    ]
+  },
+  "serviceRoleArn": "arn:aws:iam::274264184871:role/ecsCodeDeployRole",
+  "ecsServices": [
+    {
+      "serviceName": "trivia-backend-prod",
+      "clusterName": "vela-fluentd-test-prod"
+    }
+  ]
+}
